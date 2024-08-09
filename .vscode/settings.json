@@ -27,5 +27,6 @@
         "sklearn",
         "sns",
         "y"
-    ]
+    ],
+    "python.analysis.typeCheckingMode": "basic"
 }
