@@ -5,17 +5,16 @@ import pandas as pd
 import time
 
 # Create a DataFrame with x and y coordinates that change over time
+x_ = np.linspace(-50, 100, 100)
 data = pd.DataFrame({
-    'x': np.linspace(0, 10, 100),
-    'y': np.linspace(0, 10, 100)*2,
+    'x': x_,
+    'y': x_*2,
     'time': np.arange(100)
 })
 
-
-
 # Define constant axis limits
-x_min, x_max = -20, 20
-y_min, y_max = -10, 10
+x_min, x_max = -100, 100
+y_min, y_max = -200, 200
 
 # Create a figure and axis for the plot
 fig, ax = plt.subplots()
@@ -43,13 +42,13 @@ def y_derivative(x):
 
 x = list(range(-100, 101))
 y = list(map(y_function, x))
+gd_df = pd.DataFrame({'x':x, 'y':y})
 
 # current_pos = 50, y_function(50)
 current_pos = -50, y_function(-50)
 current_pos = input_x, y_function(input_x)
 learning_rate = 0.01
 ############################################################
-
 
 # Function to initialize the plot
 def init():
