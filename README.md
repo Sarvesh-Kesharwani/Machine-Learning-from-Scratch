@@ -1,4 +1,9 @@
 # ML Algorithms in Repository:
+Gradient Descent Algo Simulation App
+
+
+
+
 
 knn.py:
 
