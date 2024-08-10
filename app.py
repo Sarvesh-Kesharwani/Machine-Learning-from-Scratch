@@ -1,13 +1,38 @@
 import streamlit as st
-import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import time
 
+# Create a DataFrame with x and y coordinates that change over time
+x_ = np.linspace(-50, 100, 100)
+data = pd.DataFrame({
+    'x': x_,
+    'y': x_*2,
+    'time': np.arange(100)
+})
+
+# Define constant axis limits
+x_min, x_max = -100, 100
+y_min, y_max = -200, 200
+
+# Create a figure and axis for the plot
+fig, ax = plt.subplots()
+ax.set_xlim(x_min, x_max)
+ax.set_ylim(y_min, y_max)
+point, = ax.plot([], [], 'ro', markersize=10)  # 'ro' means red color, circle marker
+
+
+############################################################
 st.title('Gradient Descent')
 input_x = st.number_input('Initial Position', -100, 100)
+st_c_point = st.text('')
+
+# Create an empty placeholder for the plot
+chart_placeholder = st.empty()
+
 start_btn = st.button('Start')
 stop_btn = st.button('Stop')
-position_corr_text = st.empty()
 
 def y_function(x):
     return x**2
@@ -17,41 +42,34 @@ def y_derivative(x):
 
 x = list(range(-100, 101))
 y = list(map(y_function, x))
+gd_df = pd.DataFrame({'x':x, 'y':y})
 
 # current_pos = 50, y_function(50)
 current_pos = -50, y_function(-50)
 current_pos = input_x, y_function(input_x)
 learning_rate = 0.01
+############################################################
 
-# Create an empty chart
-gd_plot = st.empty()
+# Function to initialize the plot
+def init():
+    point.set_data([], [])
+    return point,
 
-def animate(current_pos):
-    fig, ax = plt.subplots()
-    # updating coordinates
-    new_x = current_pos[0] - learning_rate * y_derivative(current_pos[0])
-    new_y = y_function(new_x)
-    current_pos = new_x, new_y
-    # plotting
-    # parabola line chart
-    ax.plot(x, y, label='y = x^2')
-    # single dot scatter plot
-    ax.scatter(current_pos[0], current_pos[1], color='red')
-    # setting lengends
-    ax.set_title('Gradient Descent')
-    ax.set_xlabel(f'X-axis: {current_pos[0]}')
-    ax.set_ylabel(f'Y-axis: {current_pos[1]}')
-    ax.legend()
-    # showing current position values    
-    position_corr_text.text('x: '+str(current_pos[0])+' y: '+str(current_pos[1]))
-    # rendering the updated frame
-    gd_plot.altair_chart(fig)
+# Function to update the plot for each frame
+def update(frame):
+    current_data = data.iloc[frame]
+    point.set_data([current_data['x']], [current_data['y']])  # Pass x and y as lists
+    ax.set_title(f"Frame: {frame}, X: {current_data['x']:.2f}, Y: {current_data['y']:.2f}")
+    return current_data['x'], current_data['y']
 
+# Animation loop
 if start_btn:
-    for _ in range(200):
-        animate(current_pos)
-        time.sleep(0.1)
+    for i in range(len(data)):
+        # Updating frame
+        c_point = update(i)
+        st_c_point.text(str(c_point))
+        # Render the plot in Streamlit
+        chart_placeholder.pyplot(fig)
+        time.sleep(0.1)  # Pause for a short duration to create the animation effect
         if stop_btn:
             break
-
-
