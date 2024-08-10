@@ -1,32 +1,3 @@
 {
-    "cSpell.ignoreWords": [
-        "'display",
-        "Enter",
-        "Import",
-        "Libraries",
-        "None",
-        "argmax",
-        "as",
-        "bincount",
-        "from",
-        "import",
-        "matplotlib",
-        "max_columns'",
-        "mean_squared_error",
-        "metrics",
-        "necessary",
-        "np",
-        "numpy",
-        "pandas",
-        "pd",
-        "plt",
-        "pyplot",
-        "r2_score",
-        "seaborn",
-        "set_option",
-        "sklearn",
-        "sns",
-        "y"
-    ],
-    "python.analysis.typeCheckingMode": "basic"
+    "git-blame.gitWebUrl": ""
 }
