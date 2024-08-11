@@ -5,4 +5,4 @@ seaborn
 scikit-learn
 streamlit
 st-pages # streamlit-pages
-
+scipy
