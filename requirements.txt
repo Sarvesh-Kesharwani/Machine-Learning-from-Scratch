@@ -6,3 +6,4 @@ scikit-learn
 streamlit
 st-pages # streamlit-pages
 scipy
+pillow
